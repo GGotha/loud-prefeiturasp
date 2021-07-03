@@ -1,6 +1,12 @@
-<div style="display: flex; justify-content: center">
-  <img src="https://yt3.ggpht.com/ytc/AKedOLR2ihks-R1Qu8dGwHlMyqYVKhT6P6XP2YBBV3pP6g=s900-c-k-c0x00ffffff-no-rj" width="120">
-</div>
+<p align="center">
+  <a href="https://nodejs.org/">
+    <img
+      alt="LOUD"
+      src="https://yt3.ggpht.com/ytc/AKedOLR2ihks-R1Qu8dGwHlMyqYVKhT6P6XP2YBBV3pP6g=s900-c-k-c0x00ffffff-no-rj"
+      width="300"
+    />
+  </a>
+</p>
 <hr>
 
 Loud Prefeitura de São Paulo application is an API to handle with Opinions, comments and upvotes.
