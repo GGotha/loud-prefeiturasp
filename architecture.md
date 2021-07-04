@@ -12,12 +12,17 @@ The application should allow:
 
 - Authenticate and create new users ✔️
 - List Opinions and your respectives upvotes ✔️
-- Order opinions by upvotes number
-- Create new opinion (ensure authentication)
+- Order opinions by upvotes number ✔️
+- Create new opinion (ensure authentication) ✔️
 - Create and delete upvote (ensure authentication). Upvotes are unique by users and only themselves can remove your upvotes
 - Create, edit and delete comments on opinion (ensure authentication)
 - Authenticate with admin
+
   - Edit and delete opinions and comments
+
+- That I need
+  - When the user search opinions
+    - Search all opinions and COUNT upvotes where op.id_opinion is equal to opv.id_opinion
 
 ### Database Architecture
 
@@ -77,6 +82,6 @@ opinion_upvotes Table
 | id         | INTEGER   | NOT NULL | PRIMARY KEY |
 | id_opinion | INTEGER   | NOT NULL | FOREIGN KEY |
 | id_user    | INTEGER   | NOT NULL | FOREIGN KEY |
-| upvote     | VARCHAR   | NOT NULL |             |
+| upvote     | BOOLEAN   | NOT NULL |             |
 | created_at | DATETIME  | NOT NULL |             |
 | updated_at | DATETIME  | NULL     |             |

@@ -37,17 +37,11 @@ export default class UserController {
     const { user: userRepository } = repositories;
 
     try {
-      const { user, token } = await CreateUser(
-        email,
-        name,
-        password,
-        confirm_password,
-        {
-          userRepository,
-        }
-      );
+      const user = await CreateUser(email, name, password, confirm_password, {
+        userRepository,
+      });
 
-      return res.send({ success: true, user, token });
+      return res.send({ success: true, user });
     } catch (error) {
       if (error instanceof CustomError) {
         return res.status(error.statusCode).send({

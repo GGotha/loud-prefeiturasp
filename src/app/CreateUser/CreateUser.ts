@@ -12,7 +12,7 @@ export default async (
   password: string,
   confirm_password: string,
   options: { userRepository: IUserRepository }
-): Promise<Session> => {
+): Promise<User> => {
   if (password !== confirm_password) {
     throw new CustomError("Password and Confirm Password doesn't match");
   }
@@ -26,16 +26,5 @@ export default async (
     throw new CustomError("User already exists");
   }
 
-  const session: Session = {
-    user: persistedUser,
-    token: generateToken(persistedUser.id),
-  };
-
-  return session;
-};
-
-const generateToken = (userId: number): string => {
-  return jwt.sign({ sub: { id: userId } }, secret, {
-    expiresIn: time,
-  });
+  return persistedUser;
 };

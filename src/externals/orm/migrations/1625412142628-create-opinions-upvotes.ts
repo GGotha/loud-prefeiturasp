@@ -5,11 +5,11 @@ import {
   TableForeignKey,
 } from "typeorm";
 
-export class createOpinions1625270520952 implements MigrationInterface {
+export class createOpinionsUpvotes1625412142628 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "opinions",
+        name: "opinion_upvotes",
         columns: [
           {
             name: "id",
@@ -19,13 +19,19 @@ export class createOpinions1625270520952 implements MigrationInterface {
             generationStrategy: "increment",
           },
           {
+            name: "id_opinion",
+            type: "int",
+            isNullable: false,
+          },
+          {
             name: "id_user",
             type: "int",
             isNullable: false,
           },
           {
-            name: "content",
-            type: "varchar",
+            name: "upvote",
+            type: "bool",
+            default: true,
             isNullable: false,
           },
           {
@@ -44,7 +50,16 @@ export class createOpinions1625270520952 implements MigrationInterface {
     );
 
     await queryRunner.createForeignKey(
-      "opinions",
+      "opinion_upvotes",
+      new TableForeignKey({
+        columnNames: ["id_opinion"],
+        referencedColumnNames: ["id"],
+        referencedTableName: "opinions",
+      })
+    );
+
+    await queryRunner.createForeignKey(
+      "opinion_upvotes",
       new TableForeignKey({
         columnNames: ["id_user"],
         referencedColumnNames: ["id"],
@@ -54,6 +69,6 @@ export class createOpinions1625270520952 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("opinions");
+    await queryRunner.dropTable("opinion_upvotes");
   }
 }

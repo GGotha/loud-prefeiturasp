@@ -2,23 +2,20 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToMany,
-  ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import Opinions from "./Opinions";
 import Users from "./Users";
 
-@Entity("opinions")
-class Opinions {
+@Entity("opinion_upvotes")
+class OpinionUpvotes {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  content: string;
+  upvote: boolean;
 
   @CreateDateColumn()
   created_at: Date;
@@ -26,9 +23,11 @@ class Opinions {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => Users, (user) => user.id)
-  @JoinColumn({ name: "id_user" })
+  @OneToMany(() => Opinions, (opinion) => opinion.id)
+  id_opinion: number;
+
+  @OneToMany(() => Users, (user) => user.id)
   id_user: number;
 }
 
-export default Opinions;
+export default OpinionUpvotes;
