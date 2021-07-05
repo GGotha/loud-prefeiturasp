@@ -2,7 +2,6 @@ import { getRepository } from "typeorm";
 import IOpinionRepository from "../../entities/Opinion/IOpinionRepository";
 import Opinion from "../../entities/Opinion/Opinion";
 import Opinions from "../orm/models/Opinions";
-import OpinionUpvotes from "../orm/models/OpinionUpvotes";
 
 class OpinionMySQL implements IOpinionRepository {
   async getOpinions(): Promise<Opinion[] | null> {

@@ -22,6 +22,8 @@ export default class ServiceLocator {
     return {
       user: this.buildRepository("User"),
       opinion: this.buildRepository("Opinion"),
+      opinionUpvote: this.buildRepository("OpinionUpvote"),
+      opinionComment: this.buildRepository("OpinionComment"),
     };
   }
 

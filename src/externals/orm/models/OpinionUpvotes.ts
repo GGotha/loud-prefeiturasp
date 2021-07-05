@@ -2,6 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -23,10 +25,12 @@ class OpinionUpvotes {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Opinions, (opinion) => opinion.id)
+  @ManyToOne(() => Opinions, (opinion) => opinion.id)
+  @JoinColumn({ name: "id_opinion" })
   id_opinion: number;
 
-  @OneToMany(() => Users, (user) => user.id)
+  @ManyToOne(() => Users, (user) => user.id)
+  @JoinColumn({ name: "id_user" })
   id_user: number;
 }
 
