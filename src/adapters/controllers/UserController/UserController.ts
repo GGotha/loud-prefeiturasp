@@ -1,7 +1,7 @@
-import CustomError from "../../../externals/errors/CustomError";
 import { Request, Response } from "express";
 import AuthenticateUser from "../../../app/AuthenticateUser";
 import CreateUser from "../../../app/CreateUser";
+import CustomError from "../../../externals/errors/CustomError";
 
 export default class UserController {
   static async session(req: Request, res: Response) {

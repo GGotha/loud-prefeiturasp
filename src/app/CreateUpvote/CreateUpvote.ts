@@ -1,7 +1,6 @@
-import Opinion from "../../entities/Opinion/Opinion";
-import CustomError from "../../externals/errors/CustomError";
 import IOpinionUpvoteRepository from "@/entities/OpinionUpvote/IOpinionUpvoteRepository";
 import OpinionUpvote from "../../entities/OpinionUpvote/OpinionUpvote";
+import CustomError from "../../externals/errors/CustomError";
 
 export default async (
   opinionId: number,

@@ -7,6 +7,7 @@ interface TokenPayload {
   exp: number;
   sub: {
     id: number;
+    role: string;
   };
 }
 
@@ -25,6 +26,7 @@ export default function auth(req: Request, res: Response, next: NextFunction) {
     const { sub } = decoded as TokenPayload;
 
     req.userId = sub.id;
+    req.role = sub.role;
 
     return next();
   } catch (err) {

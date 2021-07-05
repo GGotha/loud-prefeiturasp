@@ -1,10 +1,7 @@
+import bcrypt from "bcryptjs";
 import IUserRepository from "../../entities/User/IUserRepository";
 import User from "../../entities/User/User";
 import CustomError from "../../externals/errors/CustomError";
-import bcrypt from "bcryptjs";
-import { Session } from "../../@types/session";
-import jwt from "jsonwebtoken";
-import { secret, time } from "../../externals/config/auth";
 
 export default async (
   email: string,

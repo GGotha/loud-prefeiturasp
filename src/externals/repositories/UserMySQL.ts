@@ -41,6 +41,7 @@ class UserMySQL implements IUserRepository {
 
     const persistedUser = await usersRepository.findOne({
       where: { email },
+      relations: ["roles"],
     });
 
     if (

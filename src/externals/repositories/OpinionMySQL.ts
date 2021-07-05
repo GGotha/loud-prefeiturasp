@@ -87,6 +87,56 @@ class OpinionMySQL implements IOpinionRepository {
 
     return opinion;
   }
+
+  async updateOpinion(
+    opinionId: number,
+    content: string,
+    userId: number,
+    role: string
+  ): Promise<Opinion | null> {
+    const opinionRepository = getRepository(Opinions);
+
+    if (role != "Administrator") {
+      return null;
+    }
+
+    const persistedOpinion = await opinionRepository.findOne({
+      where: { id: opinionId },
+    });
+
+    persistedOpinion.content = content;
+
+    opinionRepository.save(persistedOpinion);
+
+    const opinion = new Opinion({
+      id_user: userId,
+      content,
+      created_at: new Date(),
+    });
+
+    return opinion;
+  }
+
+  async deleteOpinion(
+    opinionId: number,
+    role: string
+  ): Promise<boolean | null> {
+    const opinionRepository = getRepository(Opinions);
+
+    if (role != "Administrator") {
+      return null;
+    }
+
+    const deleteOpinion = await opinionRepository.delete({
+      id: opinionId,
+    });
+
+    if (!deleteOpinion.affected) {
+      return null;
+    }
+
+    return true;
+  }
 }
 
 module.exports = new OpinionMySQL();

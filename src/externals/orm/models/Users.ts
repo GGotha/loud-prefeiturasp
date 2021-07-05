@@ -2,12 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import Opinions from "./Opinions";
 import Roles from "./Roles";
 
 @Entity("users")
@@ -30,8 +31,9 @@ class Users {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Roles, (role) => role.id)
-  id_role: number;
+  @ManyToOne(() => Roles, (roles) => roles.id)
+  @JoinColumn({ name: "id_role" })
+  roles: number;
 }
 
 export default Users;

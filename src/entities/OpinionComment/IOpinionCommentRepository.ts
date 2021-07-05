@@ -10,10 +10,12 @@ export default interface IOpinionCommentRepository {
     opinionId: number,
     opinionCommentsId: number,
     comment: string,
-    userId: number
+    userId: number,
+    role: string
   ): Promise<OpinionComment | null>;
   deleteOpinionComment(
     opinionCommentsId: number,
-    userId: number
+    userId: number,
+    role: string
   ): Promise<boolean | null>;
 }

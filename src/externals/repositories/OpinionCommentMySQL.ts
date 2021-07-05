@@ -3,7 +3,6 @@ import IOpinionCommentRepository from "../../entities/OpinionComment/IOpinionCom
 import OpinionComment from "../../entities/OpinionComment/OpinionComment";
 import OpinionComments from "../orm/models/OpinionComments";
 import Opinions from "../orm/models/Opinions";
-import OpinionUpvotes from "../orm/models/OpinionUpvotes";
 
 class OpinionCommentMySQL implements IOpinionCommentRepository {
   async createOpinionComment(
@@ -45,7 +44,8 @@ class OpinionCommentMySQL implements IOpinionCommentRepository {
     opinionId: number,
     opinionCommentsId: number,
     comment: string,
-    userId: number
+    userId: number,
+    role: string
   ): Promise<OpinionComment | null> {
     const opinionRepository = getRepository(Opinions);
 
@@ -59,8 +59,20 @@ class OpinionCommentMySQL implements IOpinionCommentRepository {
 
     const opinionCommentRepository = getRepository(OpinionComments);
 
+    if (role == "Administrator") {
+      const persistedOpinionComment =
+        await this.updateOpinionCommentAdministrator({
+          repository: opinionCommentRepository,
+          opinionCommentsId,
+          opinionId,
+          comment,
+        });
+
+      return persistedOpinionComment;
+    }
+
     const persistedOpinionComment = await opinionCommentRepository.findOne({
-      where: { id: opinionCommentsId, id_user: userId },
+      where: { id: opinionCommentsId, id_opinion: opinionId, id_user: userId },
     });
 
     if (!persistedOpinionComment) {
@@ -80,7 +92,8 @@ class OpinionCommentMySQL implements IOpinionCommentRepository {
 
   async deleteOpinionComment(
     opinionCommentsId: number,
-    userId: number
+    userId: number,
+    role: string
   ): Promise<boolean | null> {
     const opinionCommentRepository = getRepository(OpinionComments);
 
@@ -90,6 +103,19 @@ class OpinionCommentMySQL implements IOpinionCommentRepository {
 
     if (!thisCommentExists) {
       return null;
+    }
+
+    if (role == "Administrator") {
+      const deleteComment = await this.deleteOpinionCommentAdministrator({
+        repository: opinionCommentRepository,
+        opinionCommentsId,
+      });
+
+      if (!deleteComment.affected) {
+        return null;
+      }
+
+      return true;
     }
 
     const deleteComment = await opinionCommentRepository.delete({
@@ -102,6 +128,31 @@ class OpinionCommentMySQL implements IOpinionCommentRepository {
     }
 
     return true;
+  }
+
+  async deleteOpinionCommentAdministrator({ repository, opinionCommentsId }) {
+    return await repository.delete({
+      id: opinionCommentsId,
+    });
+  }
+
+  async updateOpinionCommentAdministrator({
+    repository,
+    opinionCommentsId,
+    opinionId,
+    comment,
+  }) {
+    const persistedOpinionComment = await repository.findOne({
+      where: { id: opinionCommentsId, id_opinion: opinionId },
+    });
+
+    if (!persistedOpinionComment) {
+      return null;
+    }
+
+    persistedOpinionComment.comment = comment;
+
+    return repository.save({ ...persistedOpinionComment });
   }
 }
 

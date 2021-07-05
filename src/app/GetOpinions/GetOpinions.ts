@@ -1,5 +1,5 @@
-import Opinion from "../../entities/Opinion/Opinion";
 import IOpinionRepository from "@/entities/Opinion/IOpinionRepository";
+import Opinion from "../../entities/Opinion/Opinion";
 import CustomError from "../../externals/errors/CustomError";
 
 export default async (options: {
@@ -8,7 +8,9 @@ export default async (options: {
   const persistedOpinions = await options.opinionRepository.getOpinions();
 
   if (!persistedOpinions) {
-    throw new CustomError("Can't get the opinions");
+    throw new CustomError(
+      "It wasn't possible to search opinions. Try again later!"
+    );
   }
 
   return persistedOpinions;

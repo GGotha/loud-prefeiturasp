@@ -54,6 +54,7 @@ export class createOpinionComments1625270528617 implements MigrationInterface {
         columnNames: ["id_opinion"],
         referencedColumnNames: ["id"],
         referencedTableName: "opinions",
+        onDelete: "CASCADE",
       })
     );
 

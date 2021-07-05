@@ -7,6 +7,7 @@ export default async (
   opinionCommentsId: number,
   comment: string,
   userId: number,
+  role: string,
   options: { opinionCommentRepository: IOpinionCommentRepository }
 ): Promise<OpinionComment> => {
   const persistedOpinionComment =
@@ -14,7 +15,8 @@ export default async (
       opinionId,
       opinionCommentsId,
       comment,
-      userId
+      userId,
+      role
     );
 
   if (!persistedOpinionComment) {

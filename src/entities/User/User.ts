@@ -1,6 +1,8 @@
+import { Roles } from "../../@types/roles";
+
 export default class User {
   public readonly id: number;
-  public id_role?: number;
+  public roles?: Roles;
   public email?: string;
   public name?: string;
   public password?: string;

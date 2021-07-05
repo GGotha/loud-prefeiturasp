@@ -24,7 +24,7 @@ class OpinionComments {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => Opinions, (opinion) => opinion.id)
+  @ManyToOne(() => Opinions, (opinion) => opinion.id, { onDelete: "CASCADE" })
   @JoinColumn({ name: "id_opinion" })
   id_opinion: number;
 

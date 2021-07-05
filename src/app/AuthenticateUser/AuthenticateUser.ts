@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { Roles } from "../../@types/roles";
 import { Session } from "../../@types/session";
 import IUserRepository from "../../entities/User/IUserRepository";
 import User from "../../entities/User/User";
@@ -22,14 +23,14 @@ export default async (
 
   const session: Session = {
     user: persistedUser,
-    token: generateToken(persistedUser.id),
+    token: generateToken(persistedUser.id, persistedUser.roles),
   };
 
   return session;
 };
 
-const generateToken = (userId: number): string => {
-  return jwt.sign({ sub: { id: userId } }, secret, {
+const generateToken = (userId: number, role: Roles): string => {
+  return jwt.sign({ sub: { id: userId, role: role.name } }, secret, {
     expiresIn: time,
   });
 };

@@ -16,9 +16,8 @@ The application should allow:
 - Create new opinion (ensure authentication) ✔️
 - Create and delete upvote (ensure authentication). Upvotes are unique by users and only themselves can remove your upvotes ✔️
 - Create, edit and delete comments on opinion (ensure authentication) ✔️
-- Authenticate with admin
-
-  - Edit and delete opinions and comments
+- Authenticate with admin ✔️
+  - Edit and delete opinions and comments ✔️
 
 ### Database Architecture
 

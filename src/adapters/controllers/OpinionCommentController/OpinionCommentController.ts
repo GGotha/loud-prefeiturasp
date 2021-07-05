@@ -27,7 +27,7 @@ export default class OpinionCommentController {
 
       return res.status(500).send({
         success: false,
-        message: "There was an error to create an comment",
+        message: "There was an error to create a comment",
       });
     }
   }
@@ -35,7 +35,7 @@ export default class OpinionCommentController {
   static async update(req: Request, res: Response) {
     const { id } = req.params;
     const { id_opinion: opinionId, comment } = req.body;
-    const { userId } = req;
+    const { userId, role } = req;
     const { repositories } = req.serviceLocator;
     const { opinionComment: opinionCommentRepository } = repositories;
 
@@ -47,6 +47,7 @@ export default class OpinionCommentController {
         opinionCommentsId,
         comment,
         userId,
+        role,
         {
           opinionCommentRepository,
         }
@@ -63,21 +64,21 @@ export default class OpinionCommentController {
 
       return res.status(500).send({
         success: false,
-        message: "There was an error to update an comment",
+        message: "There was an error to update a comment",
       });
     }
   }
 
   static async delete(req: Request, res: Response) {
     const { id } = req.params;
-    const { userId } = req;
+    const { userId, role } = req;
     const { repositories } = req.serviceLocator;
     const { opinionComment: opinionCommentRepository } = repositories;
 
     const opinionCommentsId = parseInt(id);
 
     try {
-      await DeleteComment(opinionCommentsId, userId, {
+      await DeleteComment(opinionCommentsId, userId, role, {
         opinionCommentRepository,
       });
 
@@ -92,7 +93,7 @@ export default class OpinionCommentController {
 
       return res.status(500).send({
         success: false,
-        message: "There was an error to delete an upvote",
+        message: "There was an error to delete a comment",
       });
     }
   }
