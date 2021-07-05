@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-dev": "ts-node-dev src/index.ts",
     "build": "tsc",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js --config ormconfig.json",
+    "db:seed": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +25,7 @@
     "mysql": "^2.18.1",
     "path": "^0.12.7",
     "typeorm": "^0.2.34",
+    "typeorm-seeding": "^1.6.1",
     "youch": "^2.2.2"
   },
   "devDependencies": {

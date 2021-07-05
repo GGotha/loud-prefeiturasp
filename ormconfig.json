@@ -6,6 +6,7 @@
   "password": "root",
   "database": "loud_prefeiturasp_development",
   "logging": true,
+  "seeds": ["./src/externals/orm/seeders/*.ts"],
   "entities": [
     "./src/externals/orm/models/*.ts"
   ],
